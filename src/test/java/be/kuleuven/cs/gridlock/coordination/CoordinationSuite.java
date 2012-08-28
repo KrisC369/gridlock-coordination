@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
  * @author Kristof Coninx <kristof.coninx at student.kuleuven.be>
  */
 @RunWith( Suite.class )
-@Suite.SuiteClasses( {be.kuleuven.cs.gridlock.coordination.VehicleCoordinationTest.class })
+@Suite.SuiteClasses( {be.kuleuven.cs.gridlock.coordination.VehicleCoordinationTest.class,be.kuleuven.cs.gridlock.coordination.InfrastructureCoordinationTest.class })
     public class CoordinationSuite  {
     
 }

@@ -68,7 +68,7 @@ public class SimpleVehicleAgent implements VehicleAgent, RoutingDelegate {
 
     @Override
     public void updatePosition( NodeReference nodeReference ) {
-        this.updatePosition( nodeReference );
+        //this.updatePosition( nodeReference ); //Will break in infinite recursion when called.
     }
 
     @Override
