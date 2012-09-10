@@ -84,7 +84,7 @@ public class InfrastructureCoordination implements SimulationComponent, EventLis
             if( this.agentFactory == null ) {
                 throw new IllegalStateException( "Agent Factory is null" );
             }
-            this.agents.put( component, this.agentFactory.InfrastructureAgentFactory( component ) );
+            this.agents.put( component, this.agentFactory.createAgent( component ) );
         }
     }
 

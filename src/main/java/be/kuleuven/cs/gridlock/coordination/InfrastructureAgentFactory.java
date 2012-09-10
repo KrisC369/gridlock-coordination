@@ -11,6 +11,6 @@ public interface InfrastructureAgentFactory {
 
     public void initialize( SimulationContext simulationContext );
 
-    public InfrastructureAgent InfrastructureAgentFactory( InfrastructureReference component );
+    public InfrastructureAgent createAgent( InfrastructureReference component );
 
 }
