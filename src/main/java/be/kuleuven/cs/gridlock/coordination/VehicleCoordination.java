@@ -1,5 +1,8 @@
 package be.kuleuven.cs.gridlock.coordination;
 
+import be.kuleuven.cs.gridlock.coordination.vehicle.VehicleAgentFactory;
+import be.kuleuven.cs.gridlock.coordination.vehicle.VehicleAgent;
+import be.kuleuven.cs.gridlock.coordination.vehicle.VehicleAgentFactoryLoader;
 import be.kuleuven.cs.gridlock.configuration.services.ServiceFactory;
 import be.kuleuven.cs.gridlock.simulation.SimulationComponent;
 import be.kuleuven.cs.gridlock.simulation.SimulationContext;
@@ -37,6 +40,7 @@ public class VehicleCoordination implements SimulationComponent, EventListener, 
 
     @Override
     public boolean pass( Event event ) {
+        assert event != null;
         return event.getType().startsWith( "vehicle:creation" ) || event.getType().startsWith( "vehicle:removal" );
     }
 

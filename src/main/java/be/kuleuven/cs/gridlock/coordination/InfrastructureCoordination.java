@@ -1,5 +1,8 @@
 package be.kuleuven.cs.gridlock.coordination;
 
+import be.kuleuven.cs.gridlock.coordination.infrastructure.InfrastructureAgentFactory;
+import be.kuleuven.cs.gridlock.coordination.infrastructure.InfrastructureAgentFactoryLoader;
+import be.kuleuven.cs.gridlock.coordination.infrastructure.InfrastructureAgent;
 import be.kuleuven.cs.gridlock.configuration.services.ServiceFactory;
 import be.kuleuven.cs.gridlock.simulation.SimulationComponent;
 import be.kuleuven.cs.gridlock.simulation.SimulationContext;
@@ -42,7 +45,7 @@ public class InfrastructureCoordination implements SimulationComponent, EventLis
     @Override
     public boolean pass( Event event ) {
         assert event != null;
-        return event.getType().startsWith( "Infrastructure:creation" ) || event.getType().startsWith( "Infrastructure:removal" );
+        return event.getType().startsWith( "infrastructure:addition") ;
     }
 
     private void loadAgentFactory( SimulationContext context ) {
@@ -59,21 +62,22 @@ public class InfrastructureCoordination implements SimulationComponent, EventLis
     @Override
     public void notifyOf( Event event ) {
         //TODO review based on event driver that doesn't exist yet.
-        if( event.getType().startsWith( "Infrastructure:creation" ) ) {
-            InfrastructureReference Infrastructure = event.getAttribute( "Infrastructure", InfrastructureReference.class );
+        if( event.getType().startsWith( "infrastructure:addition:node" ) ) {
+            InfrastructureReference Infrastructure = event.getAttribute( "node", InfrastructureReference.class );
             if( Infrastructure != null ) {
                 this.startAgent( Infrastructure );
             } else {
                 Logger.getLogger( InfrastructureCoordination.class.getCanonicalName() ).log( Level.SEVERE, "Faulty event got through: {0}", event.type );
             }
-        } else if( event.getType().startsWith( "Infrastructure:removal" ) ) {
-            InfrastructureReference Infrastructure = event.getAttribute( "Infrastructure", InfrastructureReference.class );
-            InfrastructureAgent agent = this.agents.get( Infrastructure );
-            if( agent != null ) {
-                agent.destroy();
-                this.agents.remove( Infrastructure );
-            }
-        }
+        } 
+//        else if( event.getType().startsWith( "Infrastructure:removal" ) ) {
+//            InfrastructureReference Infrastructure = event.getAttribute( "Infrastructure", InfrastructureReference.class );
+//            InfrastructureAgent agent = this.agents.get( Infrastructure );
+//            if( agent != null ) {
+//                agent.destroy();
+//                this.agents.remove( Infrastructure );
+//            }
+//        }
     }
 
     private void startAgent( InfrastructureReference component ) {

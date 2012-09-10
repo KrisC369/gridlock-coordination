@@ -1,4 +1,4 @@
-package be.kuleuven.cs.gridlock.coordination;
+package be.kuleuven.cs.gridlock.coordination.vehicle;
 
 import be.kuleuven.cs.gridlock.configuration.services.ServiceFactory;
 

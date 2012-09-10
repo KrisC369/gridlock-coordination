@@ -1,6 +1,6 @@
-package be.kuleuven.cs.gridlock.coordination.simple;
+package be.kuleuven.cs.gridlock.coordination.implementation.simple;
 
-import be.kuleuven.cs.gridlock.coordination.VehicleAgent;
+import be.kuleuven.cs.gridlock.coordination.vehicle.VehicleAgent;
 import be.kuleuven.cs.gridlock.routing.Path;
 import be.kuleuven.cs.gridlock.routing.RoutingService;
 import be.kuleuven.cs.gridlock.simulation.SimulationContext;
