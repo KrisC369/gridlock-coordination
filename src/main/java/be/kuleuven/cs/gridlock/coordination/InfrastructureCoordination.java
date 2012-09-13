@@ -114,8 +114,6 @@ public class InfrastructureCoordination implements SimulationComponent, EventLis
 
     @Override
     public boolean continueSimulation() {
-        synchronized( this.agents ) {
-            return !this.agents.isEmpty();
-        }
+        return false;
     }
 }

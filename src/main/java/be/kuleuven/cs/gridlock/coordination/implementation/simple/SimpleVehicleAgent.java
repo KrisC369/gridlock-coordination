@@ -27,24 +27,24 @@ public class SimpleVehicleAgent implements VehicleAgent, RoutingDelegate {
     private final SimulationContext context;
     private final VehicleReference reference;
 
-    public SimpleVehicleAgent( VehicleReference reference, SimulationContext context, RoutingService routing ) {
+    public SimpleVehicleAgent(VehicleReference reference, SimulationContext context, RoutingService routing) {
         this.context = context;
         this.reference = reference;
         this.routing = routing;
 
-        this.getVehicle().setRoutingDelegate( this );
+        this.getVehicle().setRoutingDelegate(this);
     }
 
-    private Vehicle getVehicle() {
-        return this.context.getSimulationComponent( VehicleManager.class ).getVehicle( reference );
+    protected Vehicle getVehicle() {
+        return this.context.getSimulationComponent(VehicleManager.class).getVehicle(reference);
     }
 
-    private Graph<NodeReference,LinkReference> getGraph() {
-        return this.context.getSimulationComponent( SimulationModel.class ).getGraph();
+    protected Graph<NodeReference, LinkReference> getGraph() {
+        return this.context.getSimulationComponent(SimulationModel.class).getGraph();
     }
 
     @Override
-    public void consume( VirtualTime currentTime, double timeFrameDuration ) {
+    public void consume(VirtualTime currentTime, double timeFrameDuration) {
         // NO-OP
     }
 
@@ -54,27 +54,47 @@ public class SimpleVehicleAgent implements VehicleAgent, RoutingDelegate {
     }
 
     @Override
-    public LinkReference choose( NodeReference position, Collection<LinkReference> possibleLinks ) {
-        if( this.delegate == null ) {
-            this.delegate = new PathRoutingDelegate( this.calculateRoute( position ) );
+    public LinkReference choose(NodeReference position, Collection<LinkReference> possibleLinks) {
+        if (this.delegate == null) {
+            this.delegate = new PathRoutingDelegate(this.calculateRoute(position));
         }
 
-        return this.delegate.choose( position, possibleLinks );
+        return this.delegate.choose(position, possibleLinks);
     }
 
-    private Path calculateRoute( NodeReference position ) {
-        return this.routing.route( position, this.getVehicle().getDestination(), this.getGraph() );
+    protected Path calculateRoute(NodeReference position) {
+        return this.routing.route(position, this.getVehicle().getDestination(), this.getGraph());
     }
 
     @Override
-    public void updatePosition( NodeReference nodeReference ) {
-        this.updatePosition( nodeReference );
+    public void updatePosition(NodeReference nodeReference) {
+        this.updatePosition(nodeReference);
     }
 
     @Override
     // TODO it should not be the vehicle agents responsibility to purge the vehicle information
     public void destroy() {
         this.delegate = null;
-        this.context.getSimulationComponent( VehicleManager.class ).purge( this.reference );
+        this.context.getSimulationComponent(VehicleManager.class).purge(this.reference);
+    }
+
+    protected SimulationContext getContext() {
+        return context;
+    }
+
+    protected RoutingDelegate getDelegate() {
+        return delegate;
+    }
+    
+    protected void setDelegate(RoutingDelegate delegate) {
+        this.delegate = delegate;
+    }
+
+    protected VehicleReference getReference() {
+        return reference;
+    }
+
+    protected RoutingService getRouting() {
+        return routing;
     }
 }
